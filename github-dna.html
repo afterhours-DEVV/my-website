@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub DNA - My Contribution Stats</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+            color: #c9d1d9;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 3px solid #1f6feb;
+            backdrop-filter: blur(10px);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #58a6ff;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #8b949e;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #58a6ff;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #79c0ff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .intro-section {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: rgba(30, 30, 30, 0.8);
+            border: 1px solid #30363d;
+            border-radius: 8px;
+        }
+
+        .intro-section h2 {
+            color: #58a6ff;
+            margin-bottom: 1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: rgba(30, 30, 30, 0.8);
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: #58a6ff;
+            box-shadow: 0 0 20px rgba(88, 166, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .stat-card h3 {
+            color: #79c0ff;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            color: #58a6ff;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .stat-description {
+            color: #8b949e;
+            font-size: 0.9rem;
+        }
+
+        .contribution-section {
+            margin: 3rem 0;
+        }
+
+        .section-title {
+            color: #58a6ff;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #30363d;
+            padding-bottom: 1rem;
+        }
+
+        .github-profile {
+            background: rgba(30, 30, 30, 0.8);
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .github-profile h3 {
+            color: #79c0ff;
+            margin-bottom: 1rem;
+        }
+
+        .github-profile a {
+            display: inline-block;
+            background: #238636;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s ease;
+            margin: 0.5rem;
+        }
+
+        .github-profile a:hover {
+            background: #2ea043;
+        }
+
+        .contribution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .contribution-item {
+            background: rgba(30, 30, 30, 0.8);
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .contribution-item h4 {
+            color: #58a6ff;
+            margin-bottom: 0.5rem;
+        }
+
+        .contribution-item p {
+            color: #8b949e;
+            font-size: 0.9rem;
+        }
+
+        .dna-animation {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 2rem 0;
+            align-items: center;
+            height: 60px;
+        }
+
+        .dna-bar {
+            width: 8px;
+            background: linear-gradient(180deg, #58a6ff 0%, #1f6feb 100%);
+            border-radius: 4px;
+            animation: dnaWave 1.5s ease-in-out infinite;
+        }
+
+        .dna-bar:nth-child(2) { animation-delay: 0.1s; height: 30px; }
+        .dna-bar:nth-child(3) { animation-delay: 0.2s; height: 45px; }
+        .dna-bar:nth-child(4) { animation-delay: 0.3s; height: 55px; }
+        .dna-bar:nth-child(5) { animation-delay: 0.4s; height: 50px; }
+        .dna-bar:nth-child(6) { animation-delay: 0.5s; height: 40px; }
+        .dna-bar:nth-child(7) { animation-delay: 0.6s; height: 35px; }
+        .dna-bar:nth-child(8) { animation-delay: 0.7s; height: 25px; }
+
+        @keyframes dnaWave {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(1.5); }
+        }
+
+        .language-stats {
+            background: rgba(30, 30, 30, 0.8);
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .language-bar {
+            margin: 1rem 0;
+        }
+
+        .language-name {
+            color: #79c0ff;
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #30363d;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #58a6ff 0%, #79c0ff 100%);
+            border-radius: 4px;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid #30363d;
+            color: #8b949e;
+        }
+
+        footer a {
+            color: #58a6ff;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🧬 GitHub DNA</h1>
+        <p>My Development Profile & Contribution Stats</p>
+    </header>
+
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Portfolio</a>
+
+        <div class="intro-section">
+            <h2>Welcome to My GitHub DNA</h2>
+            <p>Explore my GitHub profile, contributions, and development journey. This page showcases my coding activity and projects across GitHub.</p>
+        </div>
+
+        <!-- DNA Animation -->
+        <div style="text-align: center; margin: 3rem 0;">
+            <p style="color: #8b949e; margin-bottom: 1rem;">My GitHub Activity Pulse</p>
+            <div class="dna-animation">
+                <div class="dna-bar"></div>
+                <div class="dna-bar"></div>
+                <div class="dna-bar"></div>
+                <div class="dna-bar"></div>
+                <div class="dna-bar"></div>
+                <div class="dna-bar"></div>
+                <div class="dna-bar"></div>
+                <div class="dna-bar"></div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>📊 Repositories</h3>
+                <div class="stat-value">10+</div>
+                <p class="stat-description">Active repositories and projects</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>🔥 Contributions</h3>
+                <div class="stat-value">100+</div>
+                <p class="stat-description">Commits and contributions this year</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>⭐ Stars</h3>
+                <div class="stat-value">50+</div>
+                <p class="stat-description">Stars across my projects</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>👥 Followers</h3>
+                <div class="stat-value">25+</div>
+                <p class="stat-description">Community followers</p>
+            </div>
+        </div>
+
+        <!-- GitHub Profile Section -->
+        <div class="github-profile">
+            <h3>🔗 Connect on GitHub</h3>
+            <p style="color: #8b949e; margin-bottom: 1rem;">Visit my GitHub profile to see all my projects and contributions in real-time.</p>
+            <a href="https://github.com/afterhours-DEVV" target="_blank">View GitHub Profile</a>
+        </div>
+
+        <!-- Contributions Section -->
+        <div class="contribution-section">
+            <h2 class="section-title">📈 Contribution Highlights</h2>
+            <div class="contribution-grid">
+                <div class="contribution-item">
+                    <h4>🎮 Game Development</h4>
+                    <p>Creating games and interactive projects using various game engines and frameworks.</p>
+                </div>
+                <div class="contribution-item">
+                    <h4>💻 Web Development</h4>
+                    <p>Building responsive websites and web applications with modern technologies.</p>
+                </div>
+                <div class="contribution-item">
+                    <h4>📚 Learning & Growth</h4>
+                    <p>Continuously learning new technologies and improving coding skills.</p>
+                </div>
+                <div class="contribution-item">
+                    <h4>🚀 Project Deployment</h4>
+                    <p>Deploying projects and making them accessible to users worldwide.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Language Stats -->
+        <div class="language-stats">
+            <h3 style="color: #58a6ff; margin-bottom: 2rem;">Programming Languages</h3>
+            
+            <div class="language-bar">
+                <div class="language-name">HTML</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 100%;"></div>
+                </div>
+            </div>
+
+            <div class="language-bar">
+                <div class="language-name">JavaScript</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 85%;"></div>
+                </div>
+            </div>
+
+            <div class="language-bar">
+                <div class="language-name">CSS</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 90%;"></div>
+                </div>
+            </div>
+
+            <div class="language-bar">
+                <div class="language-name">Python</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 70%;"></div>
+                </div>
+            </div>
+
+            <div class="language-bar">
+                <div class="language-name">Game Development</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 80%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="github-profile">
+            <h3>🔍 Explore More</h3>
+            <a href="https://github.com/afterhours-DEVV?tab=repositories" target="_blank">View All Repositories</a>
+            <a href="https://github.com/afterhours-DEVV?tab=stars" target="_blank">Starred Projects</a>
+            <a href="https://github.com/afterhours-DEVV/my-website" target="_blank">This Portfolio</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 AfterHours Dev. All rights reserved.</p>
+        <p>Visit my <a href="https://github.com/afterhours-DEVV" target="_blank">GitHub Profile</a> for more information</p>
+    </footer>
+</body>
+</html>
