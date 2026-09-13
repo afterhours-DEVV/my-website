@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AfterHours Dev - Game Jolt Creator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #eee;
+            line-height: 1.6;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 3px solid #ff006e;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #ff006e;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #aaa;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        nav a {
+            color: #ff006e;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ffbe0b;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .intro {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: rgba(255, 0, 110, 0.1);
+            border-left: 4px solid #ff006e;
+            border-radius: 5px;
+        }
+
+        .intro h2 {
+            color: #ffbe0b;
+            margin-bottom: 1rem;
+        }
+
+        .games-section {
+            margin: 3rem 0;
+        }
+
+        .games-section h2 {
+            color: #ffbe0b;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .game-card {
+            background: rgba(255, 0, 110, 0.1);
+            border: 2px solid #ff006e;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(255, 0, 110, 0.3);
+        }
+
+        .game-card h3 {
+            color: #ffbe0b;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .game-card p {
+            color: #ccc;
+            margin-bottom: 1rem;
+        }
+
+        .game-card a {
+            display: inline-block;
+            background: #ff006e;
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .game-card a:hover {
+            background: #ffbe0b;
+            color: #1a1a2e;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #ff006e;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 1rem 0.5rem;
+            transition: background 0.3s;
+        }
+
+        .cta-button:hover {
+            background: #ffbe0b;
+            color: #1a1a2e;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin: 3rem 0;
+            padding: 2rem;
+            background: rgba(255, 190, 11, 0.1);
+            border-radius: 8px;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 3px solid #ff006e;
+            color: #aaa;
+        }
+
+        footer a {
+            color: #ff006e;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #ffbe0b;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🎮 AfterHours Dev</h1>
+        <p>Game Developer on Game Jolt</p>
+        <nav>
+            <a href="#games">Games</a>
+            <a href="#profile">Profile</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section class="intro">
+            <h2>Welcome to My Game Jolt Portfolio</h2>
+            <p>Explore my games and upcoming projects. Follow me on Game Jolt for the latest updates and releases!</p>
+        </section>
+
+        <section class="games-section" id="games">
+            <h2>My Games</h2>
+            <div class="games-grid">
+                <div class="game-card">
+                    <h3>🌙 Five Nights at Spark</h3>
+                    <p>An exciting game available on Game Jolt. Check it out and experience the adventure!</p>
+                    <a href="https://gamejolt.com/games/FiveNightsatSpark/1099280" target="_blank">Play Now</a>
+                </div>
+
+                <div class="game-card">
+                    <h3>🎯 More Games Coming</h3>
+                    <p>Follow my profile for upcoming games and exciting new projects. Stay tuned!</p>
+                    <a href="https://gamejolt.com/@afterhours-dev" target="_blank">View Profile</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section" id="profile">
+            <h2>Follow My Work</h2>
+            <p>Check out all my games and follow for updates on upcoming releases.</p>
+            <a href="https://gamejolt.com/@afterhours-dev" class="cta-button" target="_blank">Visit Game Jolt Profile</a>
+        </section>
+
+        <section id="contact">
+            <div class="cta-section">
+                <h2>Stay Connected</h2>
+                <p>Follow my Game Jolt profile for the latest news, updates, and new game releases!</p>
+                <div class="social-links">
+                    <a href="https://gamejolt.com/@afterhours-dev" target="_blank">Game Jolt</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 AfterHours Dev. All rights reserved.</p>
+        <p>Check out my games on <a href="https://gamejolt.com/@afterhours-dev" target="_blank">Game Jolt</a></p>
+        <div class="social-links">
+            <a href="https://gamejolt.com/@afterhours-dev" target="_blank">Game Jolt Profile</a>
+        </div>
+    </footer>
+</body>
+</html>
