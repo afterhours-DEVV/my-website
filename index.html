@@ -3,266 +3,372 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AfterHours Dev - Game Jolt Creator</title>
+    <title>Five Nights at Sparky's | afterhours-dev</title>
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #eee;
-            line-height: 1.6;
-        }
-
-        header {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 2rem;
-            text-align: center;
-            border-bottom: 3px solid #ff006e;
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            color: #ff006e;
-            margin-bottom: 0.5rem;
-        }
-
-        header p {
-            font-size: 1.1rem;
-            color: #aaa;
-        }
-
-        nav {
+            background-color: #0b0f19;
+            color: #94a3b8;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            min-height: 100vh;
             display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 1rem;
-            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        nav a {
-            color: #ff006e;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s;
-        }
-
-        nav a:hover {
-            color: #ffbe0b;
+        /* Ambient glow */
+        body::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(11, 15, 25, 0) 70%);
+            z-index: 0;
+            pointer-events: none;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
+            width: 100%;
+            max-width: 800px;
+            z-index: 1;
         }
 
-        .intro {
-            text-align: center;
-            margin: 2rem 0;
-            padding: 2rem;
-            background: rgba(255, 0, 110, 0.1);
-            border-left: 4px solid #ff006e;
-            border-radius: 5px;
-        }
-
-        .intro h2 {
-            color: #ffbe0b;
-            margin-bottom: 1rem;
-        }
-
-        .games-section {
-            margin: 3rem 0;
-        }
-
-        .games-section h2 {
-            color: #ffbe0b;
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .game-card {
-            background: rgba(255, 0, 110, 0.1);
-            border: 2px solid #ff006e;
-            border-radius: 8px;
-            padding: 1.5rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
-        }
-
-        .game-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(255, 0, 110, 0.3);
-        }
-
-        .game-card h3 {
-            color: #ffbe0b;
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-
-        .game-card p {
-            color: #ccc;
-            margin-bottom: 1rem;
-        }
-
-        .game-card a {
-            display: inline-block;
-            background: #ff006e;
-            color: white;
-            padding: 0.7rem 1.5rem;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background 0.3s;
-        }
-
-        .game-card a:hover {
-            background: #ffbe0b;
-            color: #1a1a2e;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: #ff006e;
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            margin: 1rem 0.5rem;
-            transition: background 0.3s;
-        }
-
-        .cta-button:hover {
-            background: #ffbe0b;
-            color: #1a1a2e;
-        }
-
-        .cta-section {
-            text-align: center;
-            margin: 3rem 0;
-            padding: 2rem;
-            background: rgba(255, 190, 11, 0.1);
-            border-radius: 8px;
-        }
-
-        footer {
-            background: rgba(0, 0, 0, 0.8);
-            text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
-            border-top: 3px solid #ff006e;
-            color: #aaa;
-        }
-
-        footer a {
-            color: #ff006e;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            color: #ffbe0b;
-        }
-
-        .social-links {
+        /* Navigation */
+        nav {
             display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 1rem;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #f8fafc;
+            text-decoration: none;
+            letter-spacing: -0.3px;
+        }
+
+        .logo span {
+            color: #6366f1;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
-        .social-links a {
-            font-weight: bold;
+        .nav-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
         }
 
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 1.8rem;
-            }
+        .nav-btn:hover, .nav-btn.active {
+            color: #f8fafc;
+            background-color: rgba(255, 255, 255, 0.06);
+        }
 
-            nav {
-                flex-direction: column;
-                gap: 1rem;
-            }
+        /* Pages System */
+        .page {
+            display: none;
+        }
 
-            .games-grid {
-                grid-template-columns: 1fr;
-            }
+        .page.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero Header */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: rgba(245, 158, 11, 0.1);
+            color: #fbbf24;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            background-color: #fbbf24;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #fbbf24;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            color: #f8fafc;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* Cards & Content Blocks */
+        .card {
+            background-color: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
+            backdrop-filter: blur(10px);
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            color: #f8fafc;
+            margin-bottom: 16px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #94a3b8;
+            margin-bottom: 16px;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Unique Page Content Lists */
+        .content-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .content-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+
+        .content-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #6366f1;
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn:hover {
+            background-color: #4f46e5;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn.secondary {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #f8fafc;
+            box-shadow: none;
+        }
+
+        .btn.secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 32px 0;
+            color: #64748b;
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: 24px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>🎮 AfterHours Dev</h1>
-        <p>Game Developer on Game Jolt</p>
-        <nav>
-            <a href="games.html">Games You See</a>
-            <a href="github-dna.html">GitHub DNA</a>
-            <a href="#games">Games</a>
-            <a href="#profile">Profile</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
 
     <div class="container">
-        <section class="intro">
-            <h2>Welcome to My Game Jolt Portfolio</h2>
-            <p>Explore my games and upcoming projects. Follow me on Game Jolt for the latest updates and releases!</p>
-        </section>
+        <!-- GLOBAL NAVIGATION -->
+        <nav>
+            <a href="#home" class="logo" onclick="switchPage('home', event)">afterhours<span>.dev</span></a>
+            <div class="nav-links">
+                <button class="nav-btn active" id="btn-home" onclick="switchPage('home', event)">Home</button>
+                <button class="nav-btn" id="btn-games" onclick="switchPage('games', event)">Games</button>
+                <button class="nav-btn" id="btn-developer" onclick="switchPage('developer', event)">Developer</button>
+                <button class="nav-btn" id="btn-about" onclick="switchPage('about', event)">About Me</button>
+            </div>
+        </nav>
 
-        <section class="games-section" id="games">
-            <h2>My Games</h2>
-            <div class="games-grid">
-                <div class="game-card">
-                    <h3>🌙 Five Nights at Spark</h3>
-                    <p>An exciting game available on Game Jolt. Check it out and experience the adventure!</p>
-                    <a href="https://gamejolt.com/games/FiveNightsatSpark/1099280" target="_blank">Play Now</a>
+        <!-- ================= PAGE 1: HOME PAGE (home.html) ================= -->
+        <div id="home" class="page active">
+            <header>
+                <div class="status-badge">
+                    <span class="status-dot"></span>
+                    In Development
                 </div>
+                <h1>Five Nights at Sparky's</h1>
+                <p class="subtitle">Welcome to the official web portal for independent horror projects and updates.</p>
+            </header>
 
-                <div class="game-card">
-                    <h3>🎯 More Games Coming</h3>
-                    <p>Follow my profile for upcoming games and exciting new projects. Stay tuned!</p>
-                    <a href="https://gamejolt.com/@afterhours-dev" target="_blank">View Profile</a>
+            <div class="card">
+                <h2>Latest Updates</h2>
+                <p>Development on the core camera monitoring system is moving forward. Stay tuned for official announcement trailers and upcoming development logs.</p>
+                <div class="btn-group">
+                    <button class="btn" onclick="switchPage('games', null, 'btn-games')">Explore Games</button>
+                    <button class="btn secondary" onclick="switchPage('about', null, 'btn-about')">Meet the Creator</button>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <section class="cta-section" id="profile">
-            <h2>Follow My Work</h2>
-            <p>Check out all my games and follow for updates on upcoming releases.</p>
-            <a href="https://gamejolt.com/@afterhours-dev" class="cta-button" target="_blank">Visit Game Jolt Profile</a>
-        </section>
+        <!-- ================= PAGE 2: GAMES PAGE (games.html) ================= -->
+        <div id="games" class="page">
+            <header>
+                <h1>Game Catalog</h1>
+                <p class="subtitle">Independent titles and survival horror projects.</p>
+            </header>
 
-        <section id="contact">
-            <div class="cta-section">
-                <h2>Stay Connected</h2>
-                <p>Follow my Game Jolt profile for the latest news, updates, and new game releases!</p>
-                <div class="social-links">
-                    <a href="https://gamejolt.com/@afterhours-dev" target="_blank">Game Jolt</a>
+            <div class="card">
+                <h2>Five Nights at Sparky's</h2>
+                <p><strong>Status:</strong> In Development</p>
+                <p>A suspenseful indie survival horror game centered around resource conservation, multi-angle camera oversight, and surviving against unpredictable threats.</p>
+                <ul class="content-list">
+                    <li><strong>Engine / Tools:</strong> Mobile workflow & custom logic</li>
+                    <li><strong>Platform:</strong> PC / Web (via Game Jolt)</li>
+                </ul>
+                <div class="btn-group">
+                    <a href="https://gamejolt.com/games/FiveNightsatSpark/1099280" target="_blank" class="btn">View Game Jolt Page</a>
                 </div>
             </div>
-        </section>
+        </div>
+
+        <!-- ================= PAGE 3: DEVELOPER PAGE (developer.html) ================= -->
+        <div id="developer" class="page">
+            <header>
+                <h1>Developer Studio</h1>
+                <p class="subtitle">Workflows, design architecture, and tools.</p>
+            </header>
+
+            <div class="card">
+                <h2>Mobile Development Pipeline</h2>
+                <p>Building complex games and responsive landing pages entirely through mobile workflows using advanced code editors and lightweight engines.</p>
+                <ul class="content-list">
+                    <li><strong>Code Editing:</strong> Acode (HTML/CSS/JS)</li>
+                    <li><strong>Asset Management:</strong> Custom UI prototyping</li>
+                </ul>
+                <div class="btn-group">
+                    <a href="https://gamejolt.com/@afterhours-dev" target="_blank" class="btn secondary">Visit Creator Profile</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 4: ABOUT ME PAGE (about.html) ================= -->
+        <div id="about" class="page">
+            <header>
+                <h1>About Me</h1>
+                <p class="subtitle">Behind the alias and creative vision.</p>
+            </header>
+
+            <div class="card">
+                <h2>afterhours-dev</h2>
+                <p>I am a solo indie developer with a strong passion for retro-style horror games, atmospheric lighting, and classic survival mechanics. My goal is to capture the suspense and chilling vibes of early indie horror history through original creations.</p>
+            </div>
+        </div>
+
+        <!-- GLOBAL FOOTER -->
+        <footer>
+            <p>&copy; 2026 afterhours-dev. All rights reserved.</p>
+        </footer>
     </div>
 
-    <footer>
-        <p>&copy; 2026 AfterHours Dev. All rights reserved.</p>
-        <p>Check out my games on <a href="https://gamejolt.com/@afterhours-dev" target="_blank">Game Jolt</a></p>
-        <div class="social-links">
-            <a href="https://gamejolt.com/@afterhours-dev" target="_blank">Game Jolt Profile</a>
-        </div>
-    </footer>
+    <script>
+        function switchPage(pageId, event, buttonId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(p => p.classList.remove('active'));
+
+            // Remove active class from all navigation buttons
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+
+            // Highlight the correct button
+            if (event && event.target) {
+                event.target.classList.add('active');
+            } else if (buttonId) {
+                document.getElementById(buttonId).classList.add('active');
+            }
+
+            // Smooth scroll to top of page content
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
